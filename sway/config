@@ -1,0 +1,46 @@
+output * bg #000000 solid_color
+
+input "type:touchpad" {
+	tap enabled
+	natural_scroll enabled
+}
+
+set $mod Mod4
+
+bindsym $mod+t exec alacritty -e tmux
+
+bindsym $mod+d exec wofi --show drun
+
+bindsym $mod+w kill
+
+bindsym $mod+Shift+r reload
+
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit Sway?' -b 'Yes' 'swaymsg exit'
+
+exec --no-startup-id nm-applet --indicator
+
+bindsym $mod+Shift+1 move container to workspace 1;workspace 1
+bindsym $mod+Shift+2 move container to workspace 2;workspace 2
+bindsym $mod+Shift+3 move container to workspace 3;workspace 3
+bindsym $mod+Shift+4 move container to workspace 4;workspace 4
+bindsym $mod+Shift+5 move container to workspace 5;workspace 5
+
+# Screenshot to clipboard
+bindsym Ctrl+Shift+s exec grim -g "$(slurp)" - | wl-copy
+
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+
+bindsym $mod+h focus left
+bindsym $mod+l focus right
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+exec_always waybar
