@@ -5,6 +5,13 @@ input "type:touchpad" {
 	natural_scroll enabled
 }
 
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+
+# Required for screen sharing
+exec sleep 3 && systemctl --user start xdg-desktop-portal-wlr
+exec sleep 3 && systemctl --user start xdg-desktop-portal
+
 set $mod Mod4
 
 bindsym $mod+t exec alacritty -e tmux
@@ -20,6 +27,9 @@ bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit Sway?' -b 'Yes' 'swaymsg e
 bindsym $mod+f exec dolphin
 
 exec --no-startup-id nm-applet --indicator
+
+# bindsym $mod+b exec chromium --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-webrtc-pipewire-capturer
+bindsym $mod+b exec firefox
 
 bindsym $mod+Shift+1 move container to workspace 1;workspace 1
 bindsym $mod+Shift+2 move container to workspace 2;workspace 2
@@ -46,3 +56,10 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 exec_always waybar
+
+exec_always blueman-applet
+# Auto-lock with custom image after 1 minute of inactivity
+exec_always swayidle -w timeout 60 'swaylock -i ~/.idle-message.png --scaling fit --indicator-radius 50 --indicator-thickness 5'
+# Set wallpaper
+output * bg ~/Wallpapers/archbtw.png fill
+

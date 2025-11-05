@@ -14,3 +14,8 @@ eval "$(fzf --bash)"
 eval "$(zoxide init bash)"
 
 . ~/.fancy-git/prompt.sh
+#
+# For Firefox and other apps
+export MOZ_ENABLE_WAYLAND=1
+export XDG_CURRENT_DESKTOP=sway
+export XDG_SESSION_TYPE=wayland
